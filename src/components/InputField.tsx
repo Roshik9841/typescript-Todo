@@ -7,10 +7,13 @@ interface props {
   handleAdd:(event:React.FormEvent)=>void;
 }
 const InputField: React.FC<props> = ({ todo, setTodo,handleAdd }: props) => {
-
+const inputRef = React.useRef<HTMLInputElement>(null);
   return (
-    <form className="input" onSubmit={(event)=>handleAdd(event) }>
+    <form className="input" onSubmit={(event)=>{handleAdd(event);
+      inputRef.current?.blur();
+     }}>
       <input
+      ref={inputRef}
         type="text"
         placeholder="Enter a task"
         value={todo}
